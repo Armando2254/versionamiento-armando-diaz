@@ -1,22 +1,66 @@
+/* ===== Paleta otoñal ===== */
+:root {
+    --musgo: #4A5A3A;
+    --oliva: #5C6B3A;
+    --salvia: #8A9A5B;
+    --cafe: #6B5A43;
+    --cafe-oscuro: #2B2118;
+    --noche: #1C1A14;
+    --crema: #EDE6D3;
+    --beige: #CFC8B0;
+    --gris: #8A8F7A;
+    --ocre: #B08A3E;
+    --oxido: #A0522D;
+}
+
+::selection { background: var(--ocre); color: var(--cafe-oscuro); }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--noche); }
+::-webkit-scrollbar-thumb { background: var(--cafe); border-radius: 10px; border: 2px solid var(--noche); }
+
 body {
-    background: linear-gradient(#8412B0, #000);
+    background:
+        radial-gradient(circle at 15% 20%, rgba(138, 154, 91, 0.18) 0, transparent 40%),
+        radial-gradient(circle at 85% 80%, rgba(176, 138, 62, 0.15) 0, transparent 45%),
+        repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.025) 0 2px, transparent 2px 6px),
+        linear-gradient(var(--musgo), var(--noche));
+    background-attachment: fixed;
     font-family: 'Consolas', sans-serif;
     margin: 0;
-    padding: 0;
-    height: 100vh;
+    padding: 0 0 40px;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
 }
 
+/* ===== Título ===== */
 h1 {
-    color: #FFF;
+    color: var(--crema);
     text-align: center;
-    margin-top: 20px;
+    margin-top: 30px;
     font-size: 2.5em;
+    letter-spacing: 4px;
+    text-transform: uppercase;
     display: inline;
-    text-shadow: 0 0 10px #FC199A, 0 0 20px #FC199A, 0 0 30px #FC199A, 0 0 40px #FF007F, 0 0 50px #FF007F;
+    text-shadow: 0 0 10px var(--salvia), 0 0 25px var(--oliva), 3px 3px 0 var(--cafe-oscuro);
+    animation: caer 0.8s ease-out both;
+}
+
+h1::before { content: "🍂 "; }
+h1::after  { content: " 🌿"; }
+
+@keyframes caer {
+    from { opacity: 0; transform: translateY(-25px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 .container {
@@ -27,87 +71,154 @@ h1 {
     margin-top: 50px;
     width: 90%;
     max-width: 1200px;
+    animation: aparecer 0.9s ease-out 0.2s both;
 }
 
+/* ===== Formulario (efecto etiqueta cosida) ===== */
 .formContainer {
+    position: relative;
     text-align: center;
-    background-color: #FF007F;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    background:
+        repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.06) 0 1px, transparent 1px 4px),
+        linear-gradient(160deg, #7A6850, var(--cafe));
+    padding: 24px 20px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.15);
     width: 20%;
     margin-right: 20px;
 }
 
+.formContainer::before {
+    content: "";
+    position: absolute;
+    inset: 7px;
+    border: 2px dashed rgba(237, 230, 211, 0.45);
+    border-radius: 8px;
+    pointer-events: none;
+}
+
 label {
-    color: #00FFFF;
-    font-size: 14px;
+    color: var(--crema);
+    font-size: 13px;
     margin-right: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 input {
-    padding: 8px;
+    padding: 9px;
     margin-right: 10px;
     margin-bottom: 15px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    border-radius: 6px;
+    border: 2px solid transparent;
+    background-color: var(--crema);
+    color: var(--cafe-oscuro);
+    font-family: inherit;
     width: 100%;
     box-sizing: border-box;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.25);
+    transition: border-color 0.25s, box-shadow 0.25s;
 }
 
+input:focus {
+    outline: none;
+    border-color: var(--salvia);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.25), 0 0 10px rgba(138, 154, 91, 0.8);
+}
+
+/* ===== Botón ===== */
 button {
-    background-color: #FFCC00;
-    color: #8412B0;
+    background: linear-gradient(var(--ocre), #8F6E2B);
+    color: var(--cafe-oscuro);
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 11px 20px;
+    border-radius: 6px;
     cursor: pointer;
     font-size: 14px;
+    font-family: inherit;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     width: 100%;
+    box-shadow: 0 4px 0 #5E4819, 0 6px 12px rgba(0, 0, 0, 0.4);
+    transition: transform 0.15s, box-shadow 0.15s, background 0.25s;
 }
 
 button:hover {
-    background-color: #FC199A;
+    background: linear-gradient(var(--salvia), var(--oliva));
     color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #3F4B26, 0 10px 16px rgba(0, 0, 0, 0.45);
 }
 
+button:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 #3F4B26;
+}
+
+/* ===== Tabla ===== */
 table {
     width: 60%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     margin: 0 auto;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    border: 2px solid var(--cafe);
 }
 
 th, td {
-    border: 1px solid #ddd;
+    border-bottom: 1px solid rgba(107, 90, 67, 0.4);
     padding: 12px 15px;
     text-align: left;
 }
 
 th {
-    background-color: #FC199A;
-    color: white;
+    background: linear-gradient(var(--oliva), #46532B);
+    color: var(--crema);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 13px;
+    border-bottom: 3px solid var(--ocre);
 }
 
 td {
-    background-color: #00FFFF;
-    color: #8412B0;
+    background-color: var(--beige);
+    color: #3A3226;
 }
 
+#productsTable tbody tr {
+    background-color: #E6DFCB;
+    color: var(--cafe-oscuro);
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+#productsTable tbody tr:nth-child(even) td { background-color: #DDD5BC; }
+
+#productsTable tbody tr:hover td {
+    background-color: #F1EAD3;
+    box-shadow: inset 4px 0 0 var(--ocre);
+}
+
+/* ===== Eliminar ===== */
 .delete-btn {
-    background-color: #f0745e;
-    color: white;
+    background-color: var(--oxido);
+    color: var(--crema);
     border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
+    padding: 6px 12px;
+    border-radius: 20px;
     cursor: pointer;
+    width: auto;
+    font-size: 12px;
+    letter-spacing: 0;
+    text-transform: none;
+    box-shadow: 0 2px 0 #6B2F14;
+    transition: transform 0.15s, background-color 0.2s;
 }
 
 .delete-btn:hover {
-    background-color: #ff0800;
-}
-
-
-#productsTable tbody tr {
-    background-color: #FFF;
-    color: #000;
+    background-color: #7A3B1E;
+    transform: scale(1.08) rotate(-2deg);
+    box-shadow: 0 2px 0 #4A200C;
 }

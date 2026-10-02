@@ -1,3 +1,25 @@
+//Default books to show the first time the page is opened
+const defaultBooks = [
+    { id: 1, name: "Cien años de soledad", price: 250 },
+    { id: 2, name: "El principito", price: 120 },
+    { id: 3, name: "Don Quijote de la Mancha", price: 380 },
+    { id: 4, name: "Pedro Páramo", price: 150 },
+    { id: 5, name: "1984", price: 200 }
+];
+
+//Function to load default books only if LocalStorage has never been used
+//(if the user deletes every book, the defaults will NOT come back)
+function loadDefaultBooks() {
+    const products = JSON.parse(localStorage.getItem('products')) || [];
+    const alreadySeeded = localStorage.getItem('booksSeeded');
+
+    // Load defaults if the list is empty and they were never loaded before
+    if (products.length === 0 && !alreadySeeded) {
+        localStorage.setItem('products', JSON.stringify(defaultBooks));
+        localStorage.setItem('booksSeeded', 'true');
+    }
+}
+
 //Function to load products from LocalStorage and display them in the table
 function loadProductTable() {
     let products = JSON.parse(localStorage.getItem('products')) || []; //Search and found products from LocalStorage
@@ -11,7 +33,7 @@ function loadProductTable() {
             <td>${product.id}</td>
             <td>${product.name}</td>
             <td>$${product.price}</td>
-            <td><button class="delete-btn" data-id="${product.id}">Delete</button></td>
+            <td><button class="delete-btn" data-id="${product.id}">Eliminar</button></td>
         `;
         
         //Append the row to the table
@@ -31,7 +53,7 @@ function addProduct() {
 
     // Validate inputs
     if (!name || isNaN(price) || price <= 0) {
-        alert("Please enter a valid name and price.");
+        alert("Por favor ingresa un nombre y un precio válidos.");
         return;
     }
 
@@ -75,5 +97,6 @@ function deleteProduct(event) {
 //Event listener for the button click
 document.getElementById('addProduct').addEventListener('click', addProduct);
 
-//Load products when the page loads
+//Load default books (first time only) and then show the table when the page loads
+loadDefaultBooks();
 loadProductTable();
